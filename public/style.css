@@ -3,3 +3,23 @@ html, body {
   padding: 0;
   width: 100vw;
 }
+
+.hero {
+  background-image: url("img/record_splash.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.form-container {
+  max-width: 50%;
+  margin: auto;
+  background-color: white;
+  padding: 30px 60px;
+}
+.form-container > * {
+  margin: 10px 0;
+}
+
+.form-container h1 {
+  text-align: center;
+}

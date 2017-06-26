@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Vinyl</title>
-  <link rel="stylesheet" type="text/css" href="/style.css">
-  <script type="text/javascript" src="/script.js"></script>
+  <% include templates/head.ejs %>
 </head>
 <body>
+  <% include templates/nav.ejs %>
+  <section class="hero is-large">
+    <div class="hero-body">
+      <div class="container splash">
+      </div>
+    </div>
+  </section>
 
-  <h1>Vinyl</h1>
-
-  <h2>Records</h2>
-
+  <% include templates/sign_up.ejs %>
   <div class="album-list">
     <% albums.forEach(function(album) { %>
       <div>
