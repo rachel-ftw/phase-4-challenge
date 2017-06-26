@@ -30,7 +30,30 @@ const getAlbumsByID = function(albumID, callback) {
   query("SELECT * FROM albums WHERE id = $1", [albumID], callback)
 }
 
+const getUsers = function(callback) {
+  query("SELECT * FROM users", [], callback)
+}
+
+const getUsersByID = function(userID, callback) {
+  // console.log('-----------', typeof userID)
+  query("SELECT * FROM users WHERE id = $1", [userID], callback)
+}
+
+const getReviewsByUserID = function(userID, callback) {
+  // console.log('-----------', typeof userID)
+  query("SELECT * FROM reviews WHERE user_id = $1", [userID], callback)
+}
+
+const getAlbumNameByReviewID = function(userID, callback) {
+  getReviewsByUserID(userID, (error, reviews) => {
+    query("SELECT name FROM albums")
+  })
+}
+
 module.exports = {
   getAlbums,
-  getAlbumsByID
+  getAlbumsByID,
+  getUsers,
+  getUsersByID,
+  getReviewsByUserID
 }

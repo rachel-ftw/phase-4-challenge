@@ -19,6 +19,14 @@ app.get('/', (request, response) => {
   })
 })
 
+app.get('/login', (request, response) => {
+  response.render('log_in')
+})
+
+app.get('/signup', (request, response) => {
+  response.render('sign_up')
+})
+
 app.get('/albums/:albumID', (request, response) => {
   const albumID = request.params.albumID
 
@@ -31,6 +39,56 @@ app.get('/albums/:albumID', (request, response) => {
     }
   })
 })
+
+app.get('/users/:userID', (request, response) => {
+  const { userID } = request.params
+
+  database.getUsersByID(userID, (error, user) => {
+    if (error) {
+      response.status(500).render('error', { error: error })
+    } else {
+      console.dir(user)
+      response.render('profile', { user: user })
+    }
+  })
+})
+
+app.get('/play/:userID', (request, response) => {
+  const { userID } = request.params
+  let hi
+  const reviewsByUserID = new Promise((resolve, reject) => {
+    database.getReviewsByUserID(userID, (error, review) => {
+      if (error) {
+        response.status(500).render('error', { error: error })
+      } else {
+        console.dir(review)
+        hi = review
+      }
+    })
+  })
+
+  const albumsByReviewID = new Promise((resolve, reject) => {
+    database.getReviewsByUserID(userID, (error, review) => {
+      if (error) {
+        response.status(500).render('error', { error: error })
+      } else {
+        console.dir(review)
+        hi = review
+      }
+    })
+  })
+  reviewsByUserID
+    .then(outcome => console.log('!!!!!!!!!!!!!!!!!!', outcome))
+  database.getUsersByID(userID, (error, user) => {
+    if (error) {
+      response.status(500).render('error', { error: error })
+    } else {
+      console.dir(user)
+      response.render('profile', { user: user, reviews: hi })
+    }
+  })
+})
+
 
 app.use((request, response) => {
   response.status(404).render('not_found')

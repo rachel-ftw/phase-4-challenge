@@ -10,7 +10,7 @@ VALUES
 INSERT INTO
   users (name, email, password, profile_pic)
 VALUES
-  ('Adventure Cat', 'cat@cat.cat', 'meow', 'https://media.giphy.com/media/o0vwzuFwCGAFO/giphy.gif'),
+  ('Adventure Cat', 'cat@cat.cat', 'meow', 'https://s-media-cache-ak0.pinimg.com/originals/5d/87/07/5d8707e785e6d1c685855d2cc9be754c.jpg'),
   ('A Person', 'a@a.a', 'a', 'https://m.popkey.co/b889d7/OwGXE.gif')
 ;
 
