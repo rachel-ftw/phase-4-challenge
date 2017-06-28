@@ -1,5 +1,4 @@
 const pg = require('pg')
-
 const dbName = 'vinyl'
 const connectionString = process.env.DATABASE_URL || `postgres://localhost:5432/${dbName}`
 const client = new pg.Client(connectionString)
@@ -30,13 +29,18 @@ const getAlbumsByID = function(albumID, callback) {
   query("SELECT * FROM albums WHERE id = $1", [albumID], callback)
 }
 
-const getUsers = function(callback) {
-  query("SELECT * FROM users", [], callback)
-}
-
 const getUsersByID = function(userID, callback) {
   // console.log('-----------', typeof userID)
   query("SELECT * FROM users WHERE id = $1", [userID], callback)
+}
+
+const getUsersByEmail = function(email, callback) {
+  // console.log('-----------', typeof email)
+  query("SELECT * FROM users WHERE email = $1", [email], callback)
+}
+
+const getUser = (email, password, callback) => {
+  query('SELECT * FROM users WHERE email=$1 AND password=$2', [email, password], callback)
 }
 
 const getReviewsByUserID = function(userID, callback) {
@@ -53,7 +57,8 @@ const getAlbumNameByReviewID = function(userID, callback) {
 module.exports = {
   getAlbums,
   getAlbumsByID,
-  getUsers,
   getUsersByID,
-  getReviewsByUserID
+  getReviewsByUserID,
+  getUsersByEmail,
+  getUser
 }
