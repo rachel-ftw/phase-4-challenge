@@ -103,8 +103,22 @@ app.get('/users/:userID', (request, response) => {
     if (error) {
       response.status(500).render('error', { error: error })
     } else {
-      console.log('#############', user)
-      response.render('profile', {user: user[0], reviews: user})
+      console.log('#############', user.length)
+
+      if(user.length === 0) {
+        database.getUsersByID(userID, (error, user) => {
+          if (error) {
+            response.status(500).render('error', { error: error })
+          } else {
+            console.log("HERE")
+            response.render('profile', { user: user[0], reviews: undefined })
+          }
+        })
+      } else {
+        console.log("FALLING INTO BTM")
+
+        response.render('profile', {user: user[0], reviews: user})
+      }
     }
   })
 })

@@ -15,12 +15,17 @@
         <p>Email: <%= user.email %></p>
         <p>Date Joined: <%= user.email %></p>
         <h1>REVIEWS</h1>
-        <% reviews.forEach(function(review) { %>
-          <div class="album-list-single box">
-            <h3><%= review.review_date %> <a href="/review/delete/<%= review.id %>"><i class="fa fa-trash-o" aria-hidden="true"></i></a></h3>
-            <p><%= review.review %></p>
-          </div>
-        <% }) %>
+        <% if(reviews === undefined){%>
+          <p>You don't have any reviews yet.</p>
+        <% } else { %>
+          <% reviews.forEach(function(review) { %>
+            <div class="album-list-single box">
+              <h3><%= review.review_date %> <a href="/review/delete/<%= review.id %>" onclick="confirm()"><i class="fa fa-trash-o" aria-hidden="true"></i></a></h3>
+              <p><%= review.review %></p>
+            </div>
+          <% }) %>
+        <% } %>
+
       </div>
     </div>
   </div>
