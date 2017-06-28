@@ -5,24 +5,25 @@
 </head>
 <body>
   <% include templates/nav.ejs %>
+  <div class="body-contain">
+    <div class="columns">
+      <div class="column is-one-third">
+        <img class="profile-img" src=<%= user.profile_pic %>>
+      </div>
+      <div class="column">
+        <h1><%= user.name %></h1>
+        <p>Email: <%= user.email %></p>
+        <p>Date Joined: <%= user.email %></p>
+        <h1>REVIEWS</h1>
+        <% reviews.forEach(function(review) { %>
+          <div class="album-list-single">
+            <h3><%= review.review_date %></h3>
+            <p><%= review.review %></p>
 
-  <div class="columns">
-    <div class="column is-one-third">
-      <img class="profile-img" src=<%= user[0].profile_pic %>>
+          </div>
+        <% }) %>
+      </div>
     </div>
-    <div class="column">
-      <h1><%= user[0].name %></h1>
-      <p>Email: <%= user[0].email %></p>
-      <p>Date Joined: <%= user[0].email %></p>
-    </div>
-  </div>
-  <h1>REVIEWS</h1>
-  <div class="columns">
-    <% if(isLoggedIn){%>
-      <button>logout</button>
-    <% } else { %>
-      <a href="/login"><button>login</button></a>
-    <% } %>
   </div>
 </body>
 </html>

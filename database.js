@@ -25,17 +25,26 @@ const getAlbums = function(callback) {
   query("SELECT * FROM albums", [], callback)
 }
 
+const getReviewsForHomePage = function(callback) {
+  query(`SELECT * FROM albums
+    INNER JOIN reviews ON (albums.id = reviews.album_id)
+    INNER JOIN users ON (reviews.user_id = users.id)
+    ORDER by reviews.review_date desc LIMIT 3`, [], callback)
+}
+
+const getAlbumsAndReviews = function(callback) {
+  query("SELECT * FROM reviews", [], callback)
+}
+
 const getAlbumsByID = function(albumID, callback) {
   query("SELECT * FROM albums WHERE id = $1", [albumID], callback)
 }
 
 const getUsersByID = function(userID, callback) {
-  // console.log('-----------', typeof userID)
   query("SELECT * FROM users WHERE id = $1", [userID], callback)
 }
 
 const getUsersByEmail = function(email, callback) {
-  // console.log('-----------', typeof email)
   query("SELECT * FROM users WHERE email = $1", [email], callback)
 }
 
@@ -44,14 +53,17 @@ const getUser = (email, password, callback) => {
 }
 
 const getReviewsByUserID = function(userID, callback) {
-  // console.log('-----------', typeof userID)
-  query("SELECT * FROM reviews WHERE user_id = $1", [userID], callback)
+  query(`SELECT * FROM users
+    INNER JOIN reviews ON (users.id = reviews.user_id)
+    WHERE users.id = $1`, [userID], callback)
 }
 
-const getAlbumNameByReviewID = function(userID, callback) {
-  getReviewsByUserID(userID, (error, reviews) => {
-    query("SELECT name FROM albums")
-  })
+const getReviewsByAlbumID = function(albumID, callback) {
+  query(`SELECT * FROM albums
+    INNER JOIN reviews ON (albums.id = reviews.album_id)
+    INNER JOIN users ON (reviews.user_id = users.id)
+    WHERE albums.id = $1
+    ORDER by reviews.review_date desc `, [albumID], callback)
 }
 
 module.exports = {
@@ -60,5 +72,7 @@ module.exports = {
   getUsersByID,
   getReviewsByUserID,
   getUsersByEmail,
-  getUser
+  getUser,
+  getReviewsForHomePage,
+  getReviewsByAlbumID
 }

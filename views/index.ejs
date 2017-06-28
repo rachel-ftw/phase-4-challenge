@@ -11,14 +11,29 @@
       </div>
     </div>
   </section>
-  <h2>RECORDS</h2>
-  <div class="album-list">
-    <% albums.forEach(function(album) { %>
-      <div class="record-list">
-        <h5><a href="/albums/<%= album.id %>"><%= album.title %></a></h5>
-        <span><%= album.artist %></span>
+  <div class="body-contain">
+    <div class="columns">
+      <div class="album-list column is-one-third">
+        <h2>RECORDS</h2>
+        <% albums.forEach(function(album) { %>
+          <div class="album-list-single">
+            <h5><a href="/albums/<%= album.id %>"><%= album.title %></a></h5>
+            <span><%= album.artist %></span>
+          </div>
+        <% }) %>
       </div>
-    <% }) %>
+      <div class="column">
+        <h2>REVIEWS</h2>
+        <% reviews.forEach(function(review) { %>
+          <div class="album-list-single">
+            <a href="/albums/<%= review.album_id %>"><h3><%= review.title %></h3></a>
+            <h3><%= review.review_date %></h3>
+            <p><%= review.review %></p>
+            <p>by <%= review.name %></p>
+          </div>
+        <% }) %>
+      </div>
+    </div>
   </div>
 
   <% if(isLoggedIn){%>

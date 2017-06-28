@@ -28,14 +28,37 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get('/', (request, response) => {
+  let allReviews
+  const getAllReviews = new Promise((resolve, reject) => {
+    database.getReviewsForHomePage((error, review) => {
+      if (error) {
+        response.status(500).render('error', { error: error })
+      } else {
+        allReviews = review
+      }
+    })
+  })
+
   database.getAlbums((error, albums) => {
     if (error) {
       response.status(500).render('error', { error: error })
     } else {
-      response.render('index', { albums: albums })
+      console.log('!!!!!!!!!!!!!!!!', allReviews)
+      response.render('index', { albums: albums, reviews: allReviews })
     }
   })
 })
+
+// app.get('/', (request, response) => {
+//   database.getAlbums((error, data) => {
+//     if (error) {
+//       response.status(500).render('error', { error: error })
+//     } else {
+//       return data
+//     }
+//   })
+//     .then(data =>)
+// })
 
 app.get('/login', (request, response) => {
   response.render('log_in')
@@ -63,12 +86,12 @@ app.get('/signup', (request, response) => {
 app.get('/albums/:albumID', (request, response) => {
   const albumID = request.params.albumID
 
-  database.getAlbumsByID(albumID, (error, albums) => {
+  database.getReviewsByAlbumID(albumID, (error, albums) => {
     if (error) {
       response.status(500).render('error', { error: error })
     } else {
-      const album = albums[0]
-      response.render('album', { album: album })
+      console.log('&&&&&&&&&&&&&&&&', albums)
+      response.render('album', { album: albums[0], reviews: albums })
     }
   })
 })
@@ -76,52 +99,28 @@ app.get('/albums/:albumID', (request, response) => {
 app.get('/users/:userID', (request, response) => {
   const { userID } = request.params
 
-  database.getUsersByID(userID, (error, user) => {
+  database.getReviewsByUserID(userID, (error, user) => {
     if (error) {
       response.status(500).render('error', { error: error })
     } else {
-      console.dir(user)
-      response.render('profile', { user: user })
+      console.log('#############', user)
+      response.render('profile', {user: user[0], reviews: user})
     }
   })
 })
 
-app.get('/play/:userID', (request, response) => {
-  const { userID } = request.params
-  let hi
-  const reviewsByUserID = new Promise((resolve, reject) => {
-    database.getReviewsByUserID(userID, (error, review) => {
-      if (error) {
-        response.status(500).render('error', { error: error })
-      } else {
-        console.dir(review)
-        hi = review
-      }
-    })
-  })
+app.get('/review/:albumID', (request, response) => {
+  const { albumID } = request.params
 
-  const albumsByReviewID = new Promise((resolve, reject) => {
-    database.getReviewsByUserID(userID, (error, review) => {
-      if (error) {
-        response.status(500).render('error', { error: error })
-      } else {
-        console.dir(review)
-        hi = review
-      }
-    })
-  })
-  reviewsByUserID
-    .then(outcome => console.log('!!!!!!!!!!!!!!!!!!', outcome))
-  database.getUsersByID(userID, (error, user) => {
+  database.getAlbumsByID(albumID, (error, album) => {
     if (error) {
       response.status(500).render('error', { error: error })
     } else {
-      console.dir(user)
-      response.render('profile', { user: user, reviews: hi })
+      console.log('#############', album)
+      response.render('new_review', {album: album[0]})
     }
   })
 })
-
 
 app.use((request, response) => {
   response.status(404).render('not_found')

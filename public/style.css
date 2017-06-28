@@ -4,6 +4,16 @@ html, body {
   width: 100vw;
 }
 
+.body-contain {
+  padding: 20px;
+  max-width: 800px;
+  margin: auto;
+}
+
+h1 {
+  font-size: 2em !important;
+}
+
 .hero {
   background-image: url("img/record_splash.jpg");
   background-size: cover;
@@ -16,6 +26,7 @@ html, body {
   background-color: white;
   padding: 30px 60px;
 }
+
 .form-container > * {
   margin: 10px 0;
 }
@@ -28,3 +39,18 @@ html, body {
   max-width: 100%;
   padding: 20px;
 }
+
+.columns .album-list {
+  padding: 20px 0 0 40px;
+}
+
+.album-list-single {
+  margin: 10px 0;
+}
+
+
+/*<% if(isLoggedIn){%>
+  <button>logout</button>
+<% } else { %>
+  <a href="/login"><button>login</button></a>
+<% } %>*/

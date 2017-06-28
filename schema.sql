@@ -21,5 +21,6 @@ CREATE TABLE reviews (
   id SERIAL,
   album_id INTEGER,
   user_id INTEGER,
-  review TEXT
+  review TEXT,
+  review_date timestamp default current_timestamp
 )

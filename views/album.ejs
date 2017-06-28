@@ -3,16 +3,28 @@
 <head>
   <title>Vinyl : <%= album.title %></title>
   <link rel="stylesheet" type="text/css" href="/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.2.1/css/bulma.min.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
   <script type="text/javascript" src="/script.js"></script>
 </head>
 <body>
+  <% include templates/nav.ejs %>
+  <div class="body-contain">
+    <div>
+    <h1><%= album.title %></h1>
+    <em>by <%= album.artist %></em>
+    <a class="button is-primary" href="/review/<%= album.id %>">Add Review</a>
 
-  <h1><%= album.title %></h1>
-  <em>by <%= album.artist %></em>
-
-  <h2>Reviews</h2>
-
-  <!-- TODO: implement album reviews -->
-
+    <h2>REVIEWS</h2>
+    <div>
+      <% reviews.forEach(function(review) { %>
+        <div class="box">
+          <h3><%= review.review_date %></h3>
+          <p><%= review.review %></p>
+          <p>by <%= review.name %></p>
+        </div>
+      <% }) %>
+    </div>
+  </div>
 </body>
 </html>
