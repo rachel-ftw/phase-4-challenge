@@ -48,6 +48,13 @@ h1 {
   margin: 10px 0;
 }
 
+textarea#review-form-formatted {
+  width: 600px;
+  height: 120px;
+  border: 3px solid #cccccc;
+  padding: 5px;
+}
+
 
 /*<% if(isLoggedIn){%>
   <button>logout</button>

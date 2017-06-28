@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include templates/head.ejs %>
+</head>
+<body>
+  <% include templates/nav.ejs %>
+  <div class="body-contain">
+    <h1>New Review for <%= album.title %></h1>
+    <p>by <%= album.artist %></p>
+    <form method="post" action="/review/<%= album.id%>" id="review-form">
+      <textarea placeholder="Review" name="review" form="review-form" id="review-form-formatted"></textarea>
+      <input value="Submit" type="submit" class="button is-primary"></input>
+    </form>
+  </div>
+</body>
+</html>

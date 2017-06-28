@@ -122,6 +122,20 @@ app.get('/review/:albumID', (request, response) => {
   })
 })
 
+app.get('/review/delete/:reviewID', (request, response) => {
+  const { reviewID } = request.params
+
+  database.deleteReview(reviewID, (error, review) => {
+    if (error) {
+      response.status(500).render('error', { error: error })
+    } else {
+      console.log('&&&&&&&&&&&&&&', review)
+      response.redirect(`/users/${review[0].user_id}`)
+    }
+  })
+})
+
+
 app.use((request, response) => {
   response.status(404).render('not_found')
 })

@@ -66,6 +66,10 @@ const getReviewsByAlbumID = function(albumID, callback) {
     ORDER by reviews.review_date desc `, [albumID], callback)
 }
 
+const deleteReview = function(reviewID, callback){
+  query("DELETE FROM reviews WHERE reviews.id = $1 RETURNING *", [reviewID], callback)
+}
+
 module.exports = {
   getAlbums,
   getAlbumsByID,
@@ -74,5 +78,6 @@ module.exports = {
   getUsersByEmail,
   getUser,
   getReviewsForHomePage,
-  getReviewsByAlbumID
+  getReviewsByAlbumID,
+  deleteReview
 }

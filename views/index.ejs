@@ -25,7 +25,7 @@
       <div class="column">
         <h2>REVIEWS</h2>
         <% reviews.forEach(function(review) { %>
-          <div class="album-list-single">
+          <div class="album-list-single box">
             <a href="/albums/<%= review.album_id %>"><h3><%= review.title %></h3></a>
             <h3><%= review.review_date %></h3>
             <p><%= review.review %></p>
