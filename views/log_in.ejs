@@ -6,27 +6,12 @@
 <body>
   <% include templates/nav.ejs %>
   <div class="form-container">
-    <h1>LOG IN</h1>
-    <div class="field">
-      <label class="label">Email</label>
-      <p class="control">
-        <input class="input is-success" type="text" placeholder="Text input">
-      </p>
-      <p class="help is-success">This username is available</p>
-    </div>
-
-    <div class="field">
-      <label class="label">Password</label>
-      <p class="control">
-        <input class="input is-success" type="text" placeholder="Text input">
-      </p>
-    </div>
-
-    <div class="field is-grouped">
-      <p class="control">
-        <button class="button is-primary">Submit</button>
-      </p>
-    </div>
+    <h1>login</h1>
+    <form method="post" action="/login">
+      <input placeholder="Email" name="email" type="text"></input>
+      <input placeholder="Password" name="password" type="text"></input>
+      <input value="Submit" type="submit"></input>
+    </form>
   </div>
 </body>
 </html>

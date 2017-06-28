@@ -18,7 +18,11 @@
   </div>
   <h1>REVIEWS</h1>
   <div class="columns">
-    <%= reviews[0].review %>
+    <% if(isLoggedIn){%>
+      <button>logout</button>
+    <% } else { %>
+      <a href="/login"><button>login</button></a>
+    <% } %>
   </div>
 </body>
 </html>
